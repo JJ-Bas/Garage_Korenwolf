@@ -24,6 +24,81 @@ public class Car {
     private int buildYear;
     @Column(name = "color", length = 64)
     private String color;
+
+        //getters & setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getNumberplate() {
+        return numberplate;
+    }
+
+    public void setNumberplate(String numberplate) {
+        this.numberplate = numberplate;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public int getBuildYear() {
+        return buildYear;
+    }
+
+    public void setBuildYear(int buildYear) {
+        this.buildYear = buildYear;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public String getMake() {
+        return Make;
+    }
+
+    public void setMake(String make) {
+        Make = make;
+    }
+
+    public String getModel() {
+        return Model;
+    }
+
+    public void setModel(String model) {
+        Model = model;
+    }
+
     @Column(name = "fuel_type")
     private String fuelType;
     @Column(name = "brand_name")
