@@ -35,4 +35,33 @@ public class PersonController {
                 .path("/" + person.getId()).toUriString());
         return ResponseEntity.created(uri).body(person);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
+        return repos.findById(id)
+                .map(person -> {
+                    person.setFirstname(updatedPerson.getFirstname());
+                    person.setLastname(updatedPerson.getLastname());
+                    person.setDateOfBirth(updatedPerson.getDateOfBirth());
+                    person.setStreet(updatedPerson.getStreet());
+                    person.setHouseNumber(updatedPerson.getHouseNumber());
+                    person.setPostalCode(updatedPerson.getPostalCode());
+                    person.setTelephoneNumber(updatedPerson.getTelephoneNumber());
+                    person.setEmail(updatedPerson.getEmail());
+
+                    repos.save(person);
+                    return ResponseEntity.ok(person);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+        if (repos.existsById(id)) {
+            repos.deleteById(id);
+            return ResponseEntity.noContent().build();  // 204 No Content
+        } else {
+            return ResponseEntity.notFound().build();   // 404 Not Found
+        }
+    }
 }

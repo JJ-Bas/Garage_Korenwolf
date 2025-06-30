@@ -21,7 +21,7 @@ public class Person {
     @Column(name = "street_name", length = 128)
     private String street;
     @Column(name = "house_number")
-    private int houseNumber;
+    private String houseNumber;
     @Column(name= "postal_code")
     private String postalCode;
     @Column(name = "telephone_number")
@@ -70,11 +70,11 @@ public class Person {
         this.street = street;
     }
 
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
