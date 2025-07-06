@@ -24,8 +24,15 @@ public class Car {
     private int buildYear;
     @Column(name = "color", length = 64)
     private String color;
+    @Column(name = "fuel_type")
+    private String fuelType;
+    @Column(name = "brand_name")
+    private String make;
+    @Column(name = "model_name")
+    private String model;
 
-        //getters & setters
+
+    //getters & setters
 
     public Long getId() {
         return id;
@@ -84,27 +91,21 @@ public class Car {
     }
 
     public String getMake() {
-        return Make;
+        return make;
     }
 
     public void setMake(String make) {
-        Make = make;
+        this.make = make;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 
-    @Column(name = "fuel_type")
-    private String fuelType;
-    @Column(name = "brand_name")
-    private String Make;
-    @Column(name = "model_name")
-    private String Model;
 
     //getters
 

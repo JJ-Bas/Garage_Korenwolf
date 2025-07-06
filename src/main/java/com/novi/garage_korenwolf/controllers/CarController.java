@@ -46,6 +46,9 @@ public class CarController {
                     car.setRegistrationDate(updatedCar.getRegistrationDate());
                     car.setBuildYear(updatedCar.getBuildYear());
                     car.setColor(updatedCar.getColor());
+                    car.setFuelType(updatedCar.getFuelType());
+                    car.setMake(updatedCar.getMake());
+                    car.setModel(updatedCar.getModel());
 
 
                     repos.save(car);
