@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class PersonDto {
 
@@ -25,4 +26,8 @@ public class PersonDto {
     public int telephoneNumber;
     @Email
     public String email;
+
 }
+
+
+

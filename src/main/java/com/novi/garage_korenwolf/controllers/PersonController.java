@@ -5,7 +5,8 @@ import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
 import com.novi.garage_korenwolf.services.PersonService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -48,7 +49,8 @@ public class PersonController {
                 sb.append("\n");
             }
             return ResponseEntity.badRequest().body(sb.toString());
-        } else {
+        }
+        else {
             service.createPerson(personDto);
 
             //pakt uri van de huidige request en plakt daar de Id van de nieuw aangemaakt person aan vast.
@@ -62,8 +64,18 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDto> updatePerson(@Valid @PathVariable Long id, @RequestBody PersonDto updatedPersonDto, BindingResult br) {
+    public ResponseEntity<Object> updatePerson(@PathVariable Long id,@Valid @RequestBody PersonDto updatedPersonDto, BindingResult br) {
 
+        if (br.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        }
         PersonDto updatedDto = service.updatePerson(id, updatedPersonDto);
         if (updatedDto != null) {
             return ResponseEntity.ok(updatedDto);
