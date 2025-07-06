@@ -1,8 +1,9 @@
 package com.novi.garage_korenwolf.controllers;
 
+import com.novi.garage_korenwolf.dto.PersonDto;
 import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.novi.garage_korenwolf.services.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,50 +15,47 @@ import java.util.List;
 @RequestMapping("/persons")
 public class PersonController {
 
-    @Autowired
-    private PersonRepository repos;
+
+    private final PersonService service;
+
+    public PersonController(PersonService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getPersons() {
-        return ResponseEntity.ok(repos.findAll());
+    public ResponseEntity<List<PersonDto>> getPersons() {
+        List<PersonDto> persons = service.getAllPersons();
+        return ResponseEntity.ok(persons);
     }
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        repos.save(person);
+    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto) {
+        service.createPerson(personDto);
 
         //pakt uri van de huidige request en plakt daar de Id van de nieuw aangemaakt person aan vast.
-        //vervolgens word in de return de nieuwe person opghevraagd en meegegeven
+        //vervolgens word in de return de nieuwe person opgevraagd en meegegeven
 
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/" + person.getId()).toUriString());
-        return ResponseEntity.created(uri).body(person);
+                .path("/" + personDto.id).toUriString());
+        return ResponseEntity.created(uri).body(personDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
-        return repos.findById(id)
-                .map(person -> {
-                    person.setFirstname(updatedPerson.getFirstname());
-                    person.setLastname(updatedPerson.getLastname());
-                    person.setDateOfBirth(updatedPerson.getDateOfBirth());
-                    person.setStreet(updatedPerson.getStreet());
-                    person.setHouseNumber(updatedPerson.getHouseNumber());
-                    person.setPostalCode(updatedPerson.getPostalCode());
-                    person.setTelephoneNumber(updatedPerson.getTelephoneNumber());
-                    person.setEmail(updatedPerson.getEmail());
+    public ResponseEntity<PersonDto> updatePerson(@PathVariable Long id, @RequestBody PersonDto updatedPersonDto) {
 
-                    repos.save(person);
-                    return ResponseEntity.ok(person);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        PersonDto updatedDto = service.updatePerson(id, updatedPersonDto);
+        if (updatedDto != null) {
+            return ResponseEntity.ok(updatedDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
-        if (repos.existsById(id)) {
-            repos.deleteById(id);
+        boolean deleted = service.deletePerson(id);
+        if (deleted) {
             return ResponseEntity.noContent().build();  // 204 No Content
         } else {
             return ResponseEntity.notFound().build();   // 404 Not Found

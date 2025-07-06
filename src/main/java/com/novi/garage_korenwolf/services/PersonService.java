@@ -5,6 +5,10 @@ import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonService {
 
@@ -33,4 +37,68 @@ public class PersonService {
         //de volledig gevulde personDto wordt teruggeven
         return personDto;
     }
+
+    public PersonDto updatePerson(Long id, PersonDto updatedPersonDto) {
+        Optional<Person> optionalPerson = repos.findById(id);
+
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+
+            person.setFirstname(updatedPersonDto.firstname);
+            person.setLastname(updatedPersonDto.lastname);
+            person.setDateOfBirth(updatedPersonDto.dateOfBirth);
+            person.setStreet(updatedPersonDto.street);
+            person.setHouseNumber(updatedPersonDto.houseNumber);
+            person.setPostalCode(updatedPersonDto.postalCode);
+            person.setTelephoneNumber(updatedPersonDto.telephoneNumber);
+            person.setEmail(updatedPersonDto.email);
+
+            Person updated = repos.save(person);
+
+            PersonDto resultDto = new PersonDto();
+            resultDto.id = updated.getId();
+            resultDto.firstname = updated.getFirstname();
+            resultDto.lastname = updated.getLastname();
+            resultDto.dateOfBirth = updated.getDateOfBirth();
+            resultDto.street = updated.getStreet();
+            resultDto.houseNumber = updated.getHouseNumber();
+            resultDto.postalCode = updated.getPostalCode();
+            resultDto.telephoneNumber = updated.getTelephoneNumber();
+            resultDto.email = updated.getEmail();
+
+            return resultDto;
+        } else {
+            return null;
+        }
+    }
+
+
+    public List<PersonDto> getAllPersons() {
+        return repos.findAll()
+                .stream()
+                .map(person -> {
+                    PersonDto dto = new PersonDto();
+                    dto.id = person.getId();
+                    dto.firstname = person.getFirstname();
+                    dto.lastname = person.getLastname();
+                    dto.dateOfBirth = person.getDateOfBirth();
+                    dto.street = person.getStreet();
+                    dto.houseNumber = person.getHouseNumber();
+                    dto.postalCode = person.getPostalCode();
+                    dto.telephoneNumber = person.getTelephoneNumber();
+                    dto.email = person.getEmail();
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public boolean deletePerson(Long id) {
+        if (repos.existsById(id)) {
+            repos.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
