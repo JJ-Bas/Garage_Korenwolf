@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 
-//TODO: id kan ook nummerbord zijn?
-
 @Entity
 @Table(name="cars")
 public class Car {
