@@ -1,9 +1,15 @@
 package com.novi.garage_korenwolf.controllers;
 
+import com.novi.garage_korenwolf.dto.CarDto;
+import com.novi.garage_korenwolf.dto.PersonDto;
 import com.novi.garage_korenwolf.models.Car;
 import com.novi.garage_korenwolf.repositories.CarRepository;
+import com.novi.garage_korenwolf.services.CarService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,46 +29,58 @@ public class CarController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Car>> getCars() {
-        return ResponseEntity.ok(repos.findAll());
+    public ResponseEntity<List<CarDto>> getCars() {
+        List<CarDto> cars = service.getAllCars();
+        return ResponseEntity.ok(cars);
     }
 
     @PostMapping
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
-        repos.save(car);
-
-        //pakt uri van de huidige request en plakt daar de Id van de nieuw aangemaakt person aan vast.
-        //vervolgens word in de return de nieuwe person opghevraagd en meegegeven
-
-        URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/" + car.getNumberplate()).toUriString());
-        return ResponseEntity.created(uri).body(car);
+    public ResponseEntity<Object> createCar(@Valid @RequestBody CarDto carDto, BindingResult br) {
+        if (br.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        }
+        else {
+            service.createCar(carDto);
+                        URI uri = URI.create(ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/" + carDto.numberplate).toUriString());
+            return ResponseEntity.created(uri).body(carDto);
+        }
     }
 
     @PutMapping("/{numberplate}")
-    public ResponseEntity<Car> updateCar(@PathVariable String numberplate, @RequestBody Car updatedCar) {
-        return repos.findById(numberplate)
-                .map(car -> {
-                    car.setOwnerName(updatedCar.getOwnerName());
-                    car.setRegistrationDate(updatedCar.getRegistrationDate());
-                    car.setBuildYear(updatedCar.getBuildYear());
-                    car.setColor(updatedCar.getColor());
-                    car.setFuelType(updatedCar.getFuelType());
-                    car.setMake(updatedCar.getMake());
-                    car.setModel(updatedCar.getModel());
+    public ResponseEntity<Object> updateCar(@PathVariable String numberplate,@Valid @RequestBody CarDto updatedCarDto, BindingResult br) {
 
-                    repos.save(car);
-                    return ResponseEntity.ok(car);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        if (br.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        }
+        CarDto updatedDto = service.updateCar(numberplate, updatedCarDto);
+        if (updatedDto != null) {
+            return ResponseEntity.ok(updatedDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
     @DeleteMapping("/{numberplate}")
-    public ResponseEntity<Void> deletePerson(@PathVariable String numberplate) {
-        if (repos.existsById(numberplate)) {
-            repos.deleteById(numberplate);
+    public ResponseEntity<Void> deleteCar(@PathVariable String numberplate) {
+        boolean deleted = service.deleteCar(numberplate);
+        if (deleted) {
             return ResponseEntity.noContent().build();  // 204 No Content
         } else {
             return ResponseEntity.notFound().build();   // 404 Not Found
