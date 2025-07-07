@@ -11,13 +11,10 @@ import java.time.LocalDate;
 @Table(name="cars")
 public class Car {
     @Id
-    @GeneratedValue
-    private Long id;
-
+    @Column(name = "numberplate", nullable = false, unique = true)
+    private String numberplate;
     @Column(name = "owner")
     private String ownerName;
-    @Column(name = "numberplate")
-    private String numberplate;
     @Column(name = "registration_date")
     private LocalDate registrationDate;
     @Column(name = "build_year")
@@ -34,13 +31,6 @@ public class Car {
 
     //getters & setters
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getOwnerName() {
         return ownerName;

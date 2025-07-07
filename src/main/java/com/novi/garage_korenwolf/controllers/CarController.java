@@ -33,23 +33,21 @@ public class CarController {
 
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/" + car.getId()).toUriString());
+                .path("/" + car.getNumberplate()).toUriString());
         return ResponseEntity.created(uri).body(car);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Car> updatePerson(@PathVariable Long id, @RequestBody Car updatedCar) {
-        return repos.findById(id)
+    @PutMapping("/{numberplate}")
+    public ResponseEntity<Car> updateCar(@PathVariable String numberplate, @RequestBody Car updatedCar) {
+        return repos.findById(numberplate)
                 .map(car -> {
                     car.setOwnerName(updatedCar.getOwnerName());
-                    car.setNumberplate(updatedCar.getNumberplate());
                     car.setRegistrationDate(updatedCar.getRegistrationDate());
                     car.setBuildYear(updatedCar.getBuildYear());
                     car.setColor(updatedCar.getColor());
                     car.setFuelType(updatedCar.getFuelType());
                     car.setMake(updatedCar.getMake());
                     car.setModel(updatedCar.getModel());
-
 
                     repos.save(car);
                     return ResponseEntity.ok(car);
@@ -58,13 +56,16 @@ public class CarController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
-        if (repos.existsById(id)) {
-            repos.deleteById(id);
+    @DeleteMapping("/{numberplate}")
+    public ResponseEntity<Void> deletePerson(@PathVariable String numberplate) {
+        if (repos.existsById(numberplate)) {
+            repos.deleteById(numberplate);
             return ResponseEntity.noContent().build();  // 204 No Content
         } else {
             return ResponseEntity.notFound().build();   // 404 Not Found
         }
     }
+
+
+
 }
