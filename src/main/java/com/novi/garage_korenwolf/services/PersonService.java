@@ -69,7 +69,7 @@ public class PersonService {
 
             return resultDto;
         } else {
-            return null;
+            return null; //TODO null returnen is niet netjes
         }
     }
 

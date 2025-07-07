@@ -12,7 +12,7 @@ public class Car {
     @Column(name = "numberplate", nullable = false, unique = true)
     private String numberplate;
     @Column(name = "owner")
-    private String ownerName;
+    private Long ownerId;
     @Column(name = "registration_date")
     private LocalDate registrationDate;
     @Column(name = "build_year")
@@ -30,13 +30,14 @@ public class Car {
     //getters & setters
 
 
-    public String getOwnerName() {
-        return ownerName;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
+
 
     public String getNumberplate() {
         return numberplate;

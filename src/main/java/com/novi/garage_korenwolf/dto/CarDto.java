@@ -18,7 +18,7 @@ public class CarDto {
     @Size(max = 14)
     public String numberplate;
     @NotBlank
-    public String ownerName;
+    public Long ownerId;
     @PastOrPresent
     public LocalDate registrationDate;
     @Past
