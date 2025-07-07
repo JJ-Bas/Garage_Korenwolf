@@ -16,8 +16,11 @@ import java.util.List;
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    private CarRepository repos;
+    private final CarService service;
+
+    public CarController(CarService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Car>> getCars() {
@@ -65,7 +68,6 @@ public class CarController {
             return ResponseEntity.notFound().build();   // 404 Not Found
         }
     }
-
 
 
 }
