@@ -3,6 +3,8 @@ package com.novi.garage_korenwolf.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -11,8 +13,21 @@ public class Car {
     @Id
     @Column(name = "numberplate", nullable = false, unique = true)
     private String numberplate;
+
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "car_person",
+            joinColumns = @JoinColumn(name = "car_numberplate", referencedColumnName = "numberplate"),
+            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id")
+    )
+    private Set<Person> personSet;
+
     @Column(name = "owner")
     private Long ownerId;
+
+
     @Column(name = "registration_date")
     private LocalDate registrationDate;
     @Column(name = "build_year")
@@ -27,17 +42,18 @@ public class Car {
     private String model;
 
 
+
+
     //getters & setters
 
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Set<Person> getPersonSet() {
+        return personSet;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setPersonSet(Set<Person> personSet) {
+        this.personSet = personSet;
     }
-
 
     public String getNumberplate() {
         return numberplate;

@@ -5,7 +5,6 @@ import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,10 +12,10 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
-    private final PersonRepository repos;
+    private final PersonRepository personRepos;
 
-    public PersonService(PersonRepository repos) {
-        this.repos = repos;
+    public PersonService(PersonRepository personRepos) {
+        this.personRepos = personRepos;
     }
 
     public PersonDto createPerson(PersonDto personDto) {
@@ -32,7 +31,7 @@ public class PersonService {
         person.setTelephoneNumber(personDto.telephoneNumber);
         person.setEmail(personDto.email);
         //De aangemaakte person wordt opgeslagen in de repository en voegt het id toe aan Person
-        repos.save(person);
+        personRepos.save(person);
         //id uit Person wordt toegevoegd aan de personDto
         personDto.id = person.getId();
         //de volledig gevulde personDto wordt teruggeven
@@ -40,7 +39,7 @@ public class PersonService {
     }
 
     public PersonDto updatePerson(Long id, PersonDto updatedPersonDto) {
-        Optional<Person> optionalPerson = repos.findById(id);
+        Optional<Person> optionalPerson = personRepos.findById(id);
 
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
@@ -54,7 +53,7 @@ public class PersonService {
             person.setTelephoneNumber(updatedPersonDto.telephoneNumber);
             person.setEmail(updatedPersonDto.email);
 
-            Person updated = repos.save(person);
+            Person updated = personRepos.save(person);
 
             PersonDto resultDto = new PersonDto();
             resultDto.id = updated.getId();
@@ -75,7 +74,7 @@ public class PersonService {
 
 
     public List<PersonDto> getAllPersons() {
-        return repos.findAll()
+        return personRepos.findAll()
                 .stream()
                 .map(person -> {
                     PersonDto dto = new PersonDto();
@@ -94,8 +93,8 @@ public class PersonService {
     }
 
     public boolean deletePerson(Long id) {
-        if (repos.existsById(id)) {
-            repos.deleteById(id);
+        if (personRepos.existsById(id)) {
+            personRepos.deleteById(id);
             return true;
         } else {
             return false;

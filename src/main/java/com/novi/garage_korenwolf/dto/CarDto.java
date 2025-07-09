@@ -14,22 +14,24 @@ import java.time.LocalDate;
 public class CarDto {
 
 
-    @NotBlank
+
     @Size(max = 14)
     public String numberplate;
-    @NotBlank
+
+    public long[] personIds;
+
     public Long ownerId;
     @PastOrPresent
     public LocalDate registrationDate;
-    @Past
+
     public int buildYear;
-    @NotBlank
+
     public String color;
-    @NotBlank
+
     public String fuelType;
-    @NotBlank
+
     public String make;
-    @NotBlank
+
     public String model;
 
 }

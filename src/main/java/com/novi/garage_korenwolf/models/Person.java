@@ -3,14 +3,20 @@ package com.novi.garage_korenwolf.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="persons")
+@Table(name = "persons")
 public class Person {
 
     @Id
     @GeneratedValue
     private Long id;
+
+
+    @ManyToMany(mappedBy = "personSet")
+    private Set<Car> carsSet;
 
     @Column(name = "first_name", length = 128)
     private String firstname;
@@ -22,7 +28,7 @@ public class Person {
     private String street;
     @Column(name = "house_number")
     private String houseNumber;
-    @Column(name= "postal_code")
+    @Column(name = "postal_code")
     private String postalCode;
     @Column(name = "telephone_number")
     private int telephoneNumber;
@@ -30,6 +36,16 @@ public class Person {
     private String email;
 
     //getters & setters
+
+
+    public Set<Car> getCarsSet() {
+        return carsSet;
+    }
+
+    public void setCarsSet(Set<Car> carsSet) {
+        this.carsSet = carsSet;
+    }
+
     public Long getId() {
         return id;
     }
@@ -103,7 +119,6 @@ public class Person {
     }
 
 //TODO foreign key: car & role & autopapieren uploaden
-
 
 
 }
