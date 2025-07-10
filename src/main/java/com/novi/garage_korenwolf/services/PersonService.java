@@ -1,7 +1,9 @@
 package com.novi.garage_korenwolf.services;
 
+import com.novi.garage_korenwolf.dto.CarDto;
 import com.novi.garage_korenwolf.dto.PersonDto;
 import com.novi.garage_korenwolf.models.Person;
+import com.novi.garage_korenwolf.repositories.CarRepository;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,11 @@ public class PersonService {
 
     private final PersonRepository personRepos;
 
-    public PersonService(PersonRepository personRepos) {
+    private final CarRepository carRepos;
+
+    public PersonService(PersonRepository personRepos, CarRepository carRepos) {
         this.personRepos = personRepos;
+        this.carRepos = carRepos;
     }
 
     public PersonDto createPerson(PersonDto personDto) {
@@ -87,6 +92,23 @@ public class PersonService {
                     dto.postalCode = person.getPostalCode();
                     dto.telephoneNumber = person.getTelephoneNumber();
                     dto.email = person.getEmail();
+
+                   /* if (person.getCarsSet() != null) {
+                        dto.carIds = person.getCarsSet()
+                                .stream()
+                                .map(car -> {
+                                    CarDto carDto = new CarDto();
+                                    carDto.numberplate = car.getNumberplate();
+                                    carDto.registrationDate = car.getRegistrationDate();
+                                    carDto.buildYear= car.getBuildYear();
+                                    carDto.color = car.getColor();
+                                    carDto.fuelType = car.getFuelType();
+                                    carDto.make = car.getMake();
+                                    carDto.model = car.getModel();
+                                    return carDto;
+                                })
+                                .collect(Collectors.toSet());*/
+
                     return dto;
                 })
                 .collect(Collectors.toList());

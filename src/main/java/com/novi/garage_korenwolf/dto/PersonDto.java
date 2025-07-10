@@ -12,7 +12,7 @@ import java.util.Objects;
 public class PersonDto {
 
     public Long id;
-
+    public String[] carIds;
     @NotBlank
     public String firstname;
     @NotBlank
