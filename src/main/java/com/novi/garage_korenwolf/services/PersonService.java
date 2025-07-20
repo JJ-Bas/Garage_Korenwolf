@@ -1,15 +1,14 @@
 package com.novi.garage_korenwolf.services;
 
-import com.novi.garage_korenwolf.dto.CarDto;
 import com.novi.garage_korenwolf.dto.PersonDto;
 import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.CarRepository;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class PersonService {
@@ -93,28 +92,14 @@ public class PersonService {
                     dto.telephoneNumber = person.getTelephoneNumber();
                     dto.email = person.getEmail();
 
-                   /* if (person.getCarsSet() != null) {
-                        dto.carIds = person.getCarsSet()
-                                .stream()
-                                .map(car -> {
-                                    CarDto carDto = new CarDto();
-                                    carDto.numberplate = car.getNumberplate();
-                                    carDto.registrationDate = car.getRegistrationDate();
-                                    carDto.buildYear= car.getBuildYear();
-                                    carDto.color = car.getColor();
-                                    carDto.fuelType = car.getFuelType();
-                                    carDto.make = car.getMake();
-                                    carDto.model = car.getModel();
-                                    return carDto;
-                                })
-                                .collect(Collectors.toSet());*/
+
 
                     return dto;
                 })
                 .collect(Collectors.toList());
     }
 
-    public boolean deletePerson(Long id) {
+    public boolean deletePerson(Long id){
         if (personRepos.existsById(id)) {
             personRepos.deleteById(id);
             return true;
@@ -126,3 +111,5 @@ public class PersonService {
 
 
 }
+
+

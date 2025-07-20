@@ -18,3 +18,7 @@ public class SecurityConfig {
                 .build();
     }
 }
+
+// TODO bean: password encoder
+// TODO bean: authenticatie manager
+// TODO bean: authorisation manager 

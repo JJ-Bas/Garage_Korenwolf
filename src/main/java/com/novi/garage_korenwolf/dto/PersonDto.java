@@ -1,18 +1,17 @@
 package com.novi.garage_korenwolf.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Set;
 
 public class PersonDto {
 
     public Long id;
-    public String[] carIds;
+    public Set<CarDto> carIds;
     @NotBlank
     public String firstname;
     @NotBlank
