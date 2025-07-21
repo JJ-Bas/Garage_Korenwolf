@@ -18,6 +18,8 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Set<Person> persons;
 
+   // Getters & Setters
+
     public String getRolename() {
         return rolename;
     }
@@ -25,5 +27,15 @@ public class Role {
     public void setRolename(String rolename) {
         this.rolename = rolename;
     }
+
+    public Set<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Set<Person> persons) {
+        this.persons = persons;
+    }
 }
+
+
 

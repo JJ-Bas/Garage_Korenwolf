@@ -2,11 +2,14 @@ package com.novi.garage_korenwolf.services;
 
 import com.novi.garage_korenwolf.dto.PersonDto;
 import com.novi.garage_korenwolf.models.Person;
+import com.novi.garage_korenwolf.models.Role;
 import com.novi.garage_korenwolf.repositories.CarRepository;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
+import com.novi.garage_korenwolf.repositories.RoleRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -14,11 +17,14 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepos;
+    private final RoleRepository roleRepository;
+
 
     private final CarRepository carRepos;
 
-    public PersonService(PersonRepository personRepos, CarRepository carRepos) {
+    public PersonService(PersonRepository personRepos, RoleRepository roleRepository, CarRepository carRepos) {
         this.personRepos = personRepos;
+        this.roleRepository = roleRepository;
         this.carRepos = carRepos;
     }
 
@@ -34,6 +40,16 @@ public class PersonService {
         person.setPostalCode(personDto.postalCode);
         person.setTelephoneNumber(personDto.telephoneNumber);
         person.setEmail(personDto.email);
+        //rol aanmaken
+        Role userRole = roleRepository.findByName("USER")
+                .orElseGet(() -> {
+                    Role newRole = new Role();
+                    newRole.setRolename("USER");
+                    return roleRepository.save(newRole);
+                });
+
+        person.setRoles(Set.of(userRole));
+
         //De aangemaakte person wordt opgeslagen in de repository en voegt het id toe aan Person
         personRepos.save(person);
         //id uit Person wordt toegevoegd aan de personDto

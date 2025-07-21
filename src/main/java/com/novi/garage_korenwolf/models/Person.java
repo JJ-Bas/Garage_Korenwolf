@@ -13,6 +13,14 @@ public class Person {
     @GeneratedValue
     private Long id;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "person_roles",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+
+    private Set<Role> roles;
 
     @ManyToMany(mappedBy = "personSet")
     private Set<Car> carsSet;
@@ -37,6 +45,13 @@ public class Person {
     //getters & setters
 
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
     public Set<Car> getCarsSet() {
         return carsSet;
     }

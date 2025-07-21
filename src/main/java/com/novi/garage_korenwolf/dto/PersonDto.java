@@ -11,6 +11,7 @@ import java.util.Set;
 public class PersonDto {
 
     public Long id;
+    public String[] roles;
     public Set<CarDto> carIds;
     @NotBlank
     public String firstname;
