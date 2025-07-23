@@ -32,7 +32,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         var auth = new DaoAuthenticationProvider();
         auth.setPasswordEncoder(passwordEncoder);
-        auth.setUserDetailsService(customUserDetailsService);
+        auth.setUserDetailsService(customPersonDetailsService); //TODO: create customPersonDetailsService
         return new ProviderManager(auth);
     }
 
@@ -45,13 +45,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                                 auth
-                                        //on/off security
+                                        //on/off security switch
                                         .requestMatchers("/**").permitAll()
-                        //on/off security
-
+                        //on/off security switch
+//TODO: rollen toegangen toevoegen
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        //TODO: create jwtRequestFilter
         return http.build();
     }
 }

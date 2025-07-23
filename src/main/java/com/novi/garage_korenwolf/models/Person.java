@@ -13,6 +13,7 @@ public class Person {
     @GeneratedValue
     private Long id;
 
+    /*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_roles",
@@ -21,9 +22,13 @@ public class Person {
     )
 
     private Set<Role> roles;
+*/
 
     @ManyToMany(mappedBy = "personSet")
     private Set<Car> carsSet;
+
+
+
 
     @Column(name = "first_name", length = 128)
     private String firstname;
