@@ -32,7 +32,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         var auth = new DaoAuthenticationProvider();
         auth.setPasswordEncoder(passwordEncoder);
-        auth.setUserDetailsService(customPersonDetailsService); //TODO: create customPersonDetailsService
+        auth.setUserDetailsService(customUserDetailsService); //TODO: create customPersonDetailsService
         return new ProviderManager(auth);
     }
 

@@ -41,7 +41,7 @@ public class PersonService {
         person.setTelephoneNumber(personDto.telephoneNumber);
         person.setEmail(personDto.email);
         //rol aanmaken
-        Role userRole = roleRepository.findByName("USER")
+        /*Role userRole = roleRepository.findByName("USER")
                 .orElseGet(() -> {
                     Role newRole = new Role();
                     newRole.setRolename("USER");
@@ -49,7 +49,7 @@ public class PersonService {
                 });
 
         person.setRoles(Set.of(userRole));
-
+*/
         //De aangemaakte person wordt opgeslagen in de repository en voegt het id toe aan Person
         personRepos.save(person);
         //id uit Person wordt toegevoegd aan de personDto

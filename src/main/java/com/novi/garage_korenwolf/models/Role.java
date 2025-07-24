@@ -16,7 +16,7 @@ public class Role {
     private String rolename;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<Person> persons;
+    private Set<User> users;
 
    // Getters & Setters
 
@@ -28,13 +28,7 @@ public class Role {
         this.rolename = rolename;
     }
 
-    public Set<Person> getPersons() {
-        return persons;
-    }
 
-    public void setPersons(Set<Person> persons) {
-        this.persons = persons;
-    }
 }
 
 
