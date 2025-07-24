@@ -27,9 +27,6 @@ public class Person {
     @ManyToMany(mappedBy = "personSet")
     private Set<Car> carsSet;
 
-
-
-
     @Column(name = "first_name", length = 128)
     private String firstname;
     @Column(name = "last_name", length = 128)
@@ -49,7 +46,7 @@ public class Person {
 
     //getters & setters
 
-
+/*
     public Set<Role> getRoles() {
         return roles;
     }
@@ -57,6 +54,9 @@ public class Person {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    */
+
     public Set<Car> getCarsSet() {
         return carsSet;
     }
