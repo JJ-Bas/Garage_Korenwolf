@@ -24,7 +24,6 @@ public class PersonService {
 
     public PersonService(PersonRepository personRepos, RoleRepository roleRepository, CarRepository carRepos) {
         this.personRepos = personRepos;
-        this.roleRepository = roleRepository;
         this.carRepos = carRepos;
     }
 
