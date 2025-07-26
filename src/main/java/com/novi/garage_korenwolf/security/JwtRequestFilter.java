@@ -21,9 +21,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
 
-    private final JtwService jwtService;
+    private final JwtService jwtService;
 
-    public JwtRequestFilter(JtwService jtwService, UserDetailsService userDetailsService) {
+    public JwtRequestFilter(JwtService jtwService, UserDetailsService userDetailsService) {
         this.jwtService = jtwService;
         this.userDetailsService = userDetailsService;
     }

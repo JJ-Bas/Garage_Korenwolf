@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JtwService {
+public class JwtService {
 
     private final static String SECRET_KEY = "123456789123456789123456789123456789123456789";
 
