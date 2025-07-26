@@ -9,8 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,7 +30,7 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(userDto.username);
         newUser.setPassword(encoder.encode(userDto.password));
-        Set<Role> userRoles = newUser.getRoles();
+        Set<Role> userRoles = new HashSet<>();
         for (String rolename: userDto.roles) {
             Optional<Role> or = roleRepository.findById("ROLE_" + rolename);
             if (or.isPresent()){
@@ -41,4 +43,23 @@ public class UserService {
         return userDto;
     }
 
+    public UserDto getUser(String username) {
+        Optional<User> optionalUser = userRepository.findById(username);
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("User not found: " + username);
+        }
+
+        User user = optionalUser.get();
+        UserDto userDto = new UserDto();
+        userDto.username = user.getUsername();
+        userDto.password = user.getPassword();
+
+        Set<String> roleNames = user.getRoles()
+                .stream()
+                .map(role -> role.getRolename().replace("ROLE_", ""))
+                .collect(Collectors.toSet());
+
+        userDto.roles = roleNames;
+        return userDto;
+    }
 }

@@ -1,6 +1,7 @@
 package com.novi.garage_korenwolf.services;
 
 import com.novi.garage_korenwolf.dto.UserDto;
+import com.novi.garage_korenwolf.models.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +25,19 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = userService.getUser(username);
 
-        String password = userDto.getPassword();
+        if (userDto == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
+        }
 
-        Set<Authority> authorities =us
+        String password = userDto.getPassword();
+        Set<String> roles = userDto.getRoles();
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+        for (String role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+        }
+
+        return new org.springframework.security.core.userdetails.User(username, password, grantedAuthorities);
     }
-}
+    }
+
