@@ -1,5 +1,9 @@
 package com.novi.garage_korenwolf.config;
 
+import com.novi.garage_korenwolf.repositories.UserRepository;
+import com.novi.garage_korenwolf.security.JwtRequestFilter;
+import com.novi.garage_korenwolf.security.JwtService;
+import com.novi.garage_korenwolf.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +26,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    public final CustomUserDetailsService customUserDetailsService;
+
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtRequestFilter jwtRequestFilter) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
+
 
     @Bean
     public PasswordEncoder encoder() {
