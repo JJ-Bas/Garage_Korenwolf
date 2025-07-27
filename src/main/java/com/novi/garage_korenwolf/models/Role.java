@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Set;
 
@@ -16,10 +14,9 @@ public class Role {
     private String rolename;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Set<User> users;  // Dit moet User zijn, niet Role
 
-   // Getters & Setters
-
+    // Getters & Setters
     public String getRolename() {
         return rolename;
     }
@@ -28,8 +25,11 @@ public class Role {
         this.rolename = rolename;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
 
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }
-
-
-

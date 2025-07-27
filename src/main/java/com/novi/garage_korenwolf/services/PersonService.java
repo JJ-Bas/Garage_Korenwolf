@@ -17,12 +17,11 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepos;
-    private final RoleRepository roleRepository;
 
 
     private final CarRepository carRepos;
 
-    public PersonService(PersonRepository personRepos, RoleRepository roleRepository, CarRepository carRepos) {
+    public PersonService(PersonRepository personRepos, RoleRepository roleRepository, RoleRepository roleRepository1, CarRepository carRepos) {
         this.personRepos = personRepos;
         this.carRepos = carRepos;
     }
