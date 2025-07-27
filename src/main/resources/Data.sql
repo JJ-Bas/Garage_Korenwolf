@@ -5,7 +5,7 @@ VALUES ('ROLE_USER'), ('ROLE_ADMIN'), ('ROLE_MECHANIC')
 
 -- Gebruikers toevoegen
 INSERT INTO users(username, password)
-VALUES ('admin', '{bcrypt}$2a$10$Lem4O2zrhs61O19BQYcbQe.9FRP4ymcrCMB9aqkQbCdx8mwUbHXFO') -- voorbeeld bcrypt hash voor 'admin123'
+VALUES ('admin', '$2a$12$w.W0Y.Y/13FEndUm9Agya.6gzCwIXpG3OSxVfdYuyaMlkHP.VABaK')
     ON CONFLICT DO NOTHING;
 
 -- rol toevoegen aan gebruiker
