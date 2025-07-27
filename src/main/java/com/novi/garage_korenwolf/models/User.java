@@ -21,7 +21,7 @@ import java.util.Set;
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_name"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+            inverseJoinColumns = @JoinColumn(name = "role_name")
     )
 
     private Set<Role> roles = new HashSet<>();
