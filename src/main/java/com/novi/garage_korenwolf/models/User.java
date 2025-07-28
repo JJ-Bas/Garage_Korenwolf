@@ -17,15 +17,23 @@ import java.util.Set;
         @Column(nullable = false, length = 255)
         private String password;
 
+        //relatie met Role
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_name"),
             inverseJoinColumns = @JoinColumn(name = "role_name")
     )
-
     private Set<Role> roles = new HashSet<>();
 
+    //relatie met MaintenanceJob
+    @ManyToMany(mappedBy = "mechanics")
+    private Set<MaintenanceJob> maintenanceJobs = new HashSet<>();
+
+    //helper methods
+    public boolean isMechanic() {
+        return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase("MECHANIC"));
+    }
 
     //Getters & Setters
     public String getUsername() {

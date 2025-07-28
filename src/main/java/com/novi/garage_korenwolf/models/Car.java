@@ -3,18 +3,19 @@ package com.novi.garage_korenwolf.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
-@Table(name="cars")
+@Table(name = "cars")
 public class Car {
     @Id
     @Column(name = "numberplate", nullable = false, unique = true)
     private String numberplate;
 
-
-
+    // --relatie met person--
     @ManyToMany
     @JoinTable(
             name = "car_person",
@@ -23,8 +24,10 @@ public class Car {
     )
     private Set<Person> personSet;
 
-    @Column(name = "owner")
-    private Long ownerId;
+    // --relatie met MaintenanceJob--
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    private List<MaintenanceJob> maintenanceJobs = new ArrayList<>();
+
 
 
     @Column(name = "registration_date")
@@ -39,8 +42,6 @@ public class Car {
     private String make;
     @Column(name = "model_name")
     private String model;
-
-
 
 
     //getters & setters
@@ -109,13 +110,6 @@ public class Car {
     public void setModel(String model) {
         this.model = model;
     }
-
-
-
-
-
-
-
 
 
 }

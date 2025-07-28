@@ -1,15 +1,32 @@
 package com.novi.garage_korenwolf.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "maintenance_Job")
 public class MaintenanceJob {
     @Id
     private Long id;
+
+    //relatie met Car
+    @ManyToOne
+    @JoinColumn(name = "car_numberplate")
+    private Car car;
+
+// relatie met User: MECHANIC
+    @ManyToMany
+    @JoinTable(
+            name = "mechanic_jobs",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_name")
+    )
+    private Set<User> mechanics = new HashSet<>();
+
+    // getters & setters
 
     public void setId(Long id) {
         this.id = id;
