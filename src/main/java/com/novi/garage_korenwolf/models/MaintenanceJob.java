@@ -3,7 +3,9 @@ package com.novi.garage_korenwolf.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +19,7 @@ public class MaintenanceJob {
     @JoinColumn(name = "car_numberplate")
     private Car car;
 
-// relatie met User: MECHANIC
+    // relatie met User: MECHANIC
     @ManyToMany
     @JoinTable(
             name = "mechanic_jobs",
@@ -25,6 +27,11 @@ public class MaintenanceJob {
             inverseJoinColumns = @JoinColumn(name = "user_name")
     )
     private Set<User> mechanics = new HashSet<>();
+
+    // relatie met jobItem
+    @OneToMany(mappedBy = "maintenanceJob", cascade = CascadeType.ALL)
+    private List<JobItem> jobItems = new ArrayList<>();
+
 
     // getters & setters
 
@@ -36,3 +43,5 @@ public class MaintenanceJob {
         return id;
     }
 }
+
+//deze class wordt uitgebreid met Part en WorkPerformed
