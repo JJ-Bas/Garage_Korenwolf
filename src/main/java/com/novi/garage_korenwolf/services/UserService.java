@@ -56,7 +56,7 @@ public class UserService {
 
         Set<String> roleNames = user.getRoles()
                 .stream()
-                .map(role -> role.getRolename().replace("ROLE_", ""))
+                .map(role -> role.getName().replace("ROLE_", ""))
                 .collect(Collectors.toSet());
 
         userDto.roles = roleNames;

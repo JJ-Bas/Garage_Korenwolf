@@ -11,18 +11,18 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role {
     @Id
-    private String rolename;
+    private String name;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;  // Dit moet User zijn, niet Role
 
     // Getters & Setters
-    public String getRolename() {
-        return rolename;
+    public String getName() {
+        return name;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setname(String rolename) {
+        this.name = rolename;
     }
 
     public Set<User> getUsers() {
