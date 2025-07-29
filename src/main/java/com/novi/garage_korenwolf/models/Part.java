@@ -1,51 +1,52 @@
 package com.novi.garage_korenwolf.models;
 
-import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("PART")
-public class Part extends JobItem{
+public class Part extends JobItem {
 
-    private int ItemsInStock;
-    private List<String> Suppliers;
-    private String Brand;
-    private String categorie;
+    private int itemsInStock;
 
+    @ElementCollection
+    private List<String> suppliers;
 
-    // getter & setters
+    private String brand;
+
+    private String category;
+
+    // Getters & setters
 
     public int getItemsInStock() {
-        return ItemsInStock;
+        return itemsInStock;
     }
 
     public void setItemsInStock(int itemsInStock) {
-        ItemsInStock = itemsInStock;
+        this.itemsInStock = itemsInStock;
     }
 
     public List<String> getSuppliers() {
-        return Suppliers;
+        return suppliers;
     }
 
     public void setSuppliers(List<String> suppliers) {
-        Suppliers = suppliers;
+        this.suppliers = suppliers;
     }
 
     public String getBrand() {
-        return Brand;
+        return brand;
     }
 
     public void setBrand(String brand) {
-        Brand = brand;
+        this.brand = brand;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

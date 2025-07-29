@@ -1,18 +1,15 @@
 package com.novi.garage_korenwolf.models;
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("WORK")
 public class WorkPerformed extends JobItem {
 
     private double workTimeInMinutes;
     private String notes;
     private boolean warranty;
 
-
-    // getter & setters
+    // getters & setters
 
     public double getWorkTimeInMinutes() {
         return workTimeInMinutes;
@@ -38,4 +35,3 @@ public class WorkPerformed extends JobItem {
         this.warranty = warranty;
     }
 }
-
