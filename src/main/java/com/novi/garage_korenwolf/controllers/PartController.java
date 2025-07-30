@@ -66,7 +66,6 @@ public class PartController {
 }
 
 //TODO: specefieke mapping aanmaken in part
-//TODO: WorkPerformed mapper schrijven
 //TODO: Workperformed controller vullen
 //TODO: Workperformed service vullen
 //TODO: Data.sql vullen met gevens voor part en workPerformed
