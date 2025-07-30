@@ -32,19 +32,82 @@ public class MaintenanceJob {
     @OneToMany(mappedBy = "maintenanceJob", cascade = CascadeType.ALL)
     private List<JobItem> jobItems = new ArrayList<>();
 
+    //relatie met invoice
+    @OneToOne(mappedBy = "job", cascade = CascadeType.ALL)
+    private Invoice invoice;
+
     private String description;
+    private JobStatus jobStatus;
+
+    public static enum JobStatus {
+        PENDING,
+        REJECTED,
+        APPROVED,
+        COMPLETED,
+        PICKED_UP,
+    }
+
+    // status updates
+    public void rejectJob() {
+        this.jobStatus = JobStatus.REJECTED;
+    }
+    // TODO:Factuur aanmaken voor keuring
+
+    public void approveJob() {
+        this.jobStatus = JobStatus.APPROVED;
+    }
+
+    public void completeJob() {
+        this.jobStatus = JobStatus.COMPLETED;
+        //TODO:Factuur aanmaken voor afrekenen
+    }
+
+    public void pickupJob() {
+        this.jobStatus = JobStatus.PICKED_UP;
+    }
 
     // getters & setters
 
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Set<User> getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(Set<User> mechanics) {
+        this.mechanics = mechanics;
+    }
+
+    public List<JobItem> getJobItems() {
+        return jobItems;
+    }
+
+    public void setJobItems(List<JobItem> jobItems) {
+        this.jobItems = jobItems;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
 
     public String getDescription() {
         return description;
@@ -53,5 +116,6 @@ public class MaintenanceJob {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
 }
