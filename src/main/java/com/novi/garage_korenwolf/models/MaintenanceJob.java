@@ -32,8 +32,10 @@ public class MaintenanceJob {
     @OneToMany(mappedBy = "maintenanceJob", cascade = CascadeType.ALL)
     private List<JobItem> jobItems = new ArrayList<>();
 
+    private String description;
 
     // getters & setters
+
 
     public void setId(Long id) {
         this.id = id;
@@ -42,6 +44,14 @@ public class MaintenanceJob {
     public Long getId() {
         return id;
     }
-}
 
-//deze class wordt uitgebreid met Part en WorkPerformed
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+}

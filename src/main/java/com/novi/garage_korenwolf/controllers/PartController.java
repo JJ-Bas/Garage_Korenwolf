@@ -26,14 +26,14 @@ public class PartController {
     public List<PartDto> getAllParts() {
         List<Part> parts = partService.getAllParts();
         return parts.stream()
-                .map(PartMapper::toDTO)
+                .map(PartMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/id")
     public PartDto getPartById(@PathVariable long id) {
         return partService.getPartByID(id)
-                .map(PartMapper::toDTO)
+                .map(PartMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build()).getBody();
     }
@@ -42,7 +42,7 @@ public class PartController {
     public ResponseEntity<PartDto> createPart(@RequestBody PartDto partDto) {
         Part part = PartMapper.toEntity(partDto);
         Part savedPart = partService.savePart(part);
-        return ResponseEntity.ok(PartMapper.toDTO(savedPart));
+        return ResponseEntity.ok(PartMapper.toDto(savedPart));
     }
 
     @PutMapping("/{id}")
@@ -52,7 +52,7 @@ public class PartController {
         }
         Part part = PartMapper.toEntity(partDto);
         Part updatedPart = partService.updatePart(part);
-        return ResponseEntity.ok(PartMapper.toDTO(updatedPart));
+        return ResponseEntity.ok(PartMapper.toDto(updatedPart));
     }
 
     @DeleteMapping("/{id}")
@@ -63,6 +63,19 @@ public class PartController {
         partService.deletePartById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/decrease-stock")
+    public ResponseEntity<PartDto> decreaseStock(@PathVariable Long id, @RequestParam int quantity) {
+        Part updated = partService.decreaseStock(id, quantity);
+        return ResponseEntity.ok(PartMapper.toDto(updated));
+    }
+
+    @PostMapping("/{id}/increase-stock")
+    public ResponseEntity<PartDto> increaseStock(@PathVariable Long id, @RequestParam int quantity) {
+        Part updated = partService.increaseStock(id, quantity);
+        return ResponseEntity.ok(PartMapper.toDto(updated));
+    }
+
 }
 
 //TODO: specefieke mapping aanmaken in part

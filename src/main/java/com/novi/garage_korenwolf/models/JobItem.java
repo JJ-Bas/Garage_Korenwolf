@@ -3,6 +3,9 @@ package com.novi.garage_korenwolf.models;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+
+//deze class wordt uitgebreid met Part en WorkPerformed
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class JobItem {

@@ -50,5 +50,26 @@ public class PartService {
         partRepository.deleteById(id);
     }
 
+    // stock management
 
+    public Part decreaseStock(Long id, int quantity) {
+        Part part = partRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Part not found"));
+
+        if (part.getItemsInStock() < quantity) {
+            throw new IllegalArgumentException("Not enough stock");
+        }
+
+        part.setItemsInStock(part.getItemsInStock() - quantity);
+        return partRepository.save(part);
+    }
+
+
+    public Part increaseStock(Long id, int quantity) {
+        Part part = partRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Part not found"));
+
+        part.setItemsInStock(part.getItemsInStock() + quantity);
+        return partRepository.save(part);
+    }
 }

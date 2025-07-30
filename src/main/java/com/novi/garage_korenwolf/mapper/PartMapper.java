@@ -5,7 +5,7 @@ import com.novi.garage_korenwolf.models.Part;
 
 public class PartMapper {
 
-    public static PartDto toDTO(Part part) {
+    public static PartDto toDto(Part part) {
         if (part == null) {
             return null;
         }
