@@ -30,7 +30,7 @@ public class PartController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public PartDto getPartById(@PathVariable long id) {
         return partService.getPartByID(id)
                 .map(PartMapper::toDto)

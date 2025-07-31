@@ -36,13 +36,6 @@ VALUES (2, 200, 'MANN', 'Air');
 INSERT INTO part (id, items_in_stock, brand, category)
 VALUES (3, 150, 'NGK', 'Ignition');
 
---  part suppliers
-INSERT INTO part_suppliers (part_id, suppliers)
-VALUES (1, 'AutoSupplies Inc.'),
-       (1, 'FilterTech'),
-       (2, 'CleanAir Co.'),
-       (3, 'SparkPro');
-
 -- WorkPerformed (job_Item)
 INSERT INTO job_item (id, name, description, price_exclusive_tax, tax_percentage, maintenance_job_id)
 VALUES (4, 'Brake Pad Replacement', 'Front brake pads replaced', 60.00, 21.0, 1);

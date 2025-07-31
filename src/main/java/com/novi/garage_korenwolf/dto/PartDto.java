@@ -5,7 +5,7 @@ import java.util.List;
 public class PartDto extends JobItemDto {
 
     private int itemsInStock;
-    private List<String> suppliers;
+    private String supplier;
     private String brand;
     private String category;
 
@@ -19,12 +19,12 @@ public class PartDto extends JobItemDto {
         this.itemsInStock = itemsInStock;
     }
 
-    public List<String> getSuppliers() {
-        return suppliers;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setSuppliers(List<String> suppliers) {
-        this.suppliers = suppliers;
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
     public String getBrand() {

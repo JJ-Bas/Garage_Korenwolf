@@ -1,16 +1,14 @@
 package com.novi.garage_korenwolf.models;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import java.util.List;
 
 @Entity
 public class Part extends JobItem {
 
     private int itemsInStock;
 
-    @ElementCollection
-    private List<String> suppliers;
+    private String supplier;
+
 
     private String brand;
 
@@ -26,12 +24,12 @@ public class Part extends JobItem {
         this.itemsInStock = itemsInStock;
     }
 
-    public List<String> getSuppliers() {
-        return suppliers;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setSuppliers(List<String> suppliers) {
-        this.suppliers = suppliers;
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
     public String getBrand() {

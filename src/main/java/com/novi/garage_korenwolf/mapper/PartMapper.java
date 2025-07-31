@@ -19,7 +19,7 @@ public class PartMapper {
         dto.setMaintenanceJobId(part.getMaintenanceJob() != null ? part.getMaintenanceJob().getId() : null);
 
         dto.setItemsInStock(part.getItemsInStock());
-        dto.setSuppliers(part.getSuppliers());
+        dto.setSupplier(part.getSupplier());
         dto.setBrand(part.getBrand());
         dto.setCategory(part.getCategory());
 
@@ -41,7 +41,7 @@ public class PartMapper {
         // geen maintenanceJob
 
         part.setItemsInStock(dto.getItemsInStock());
-        part.setSuppliers(dto.getSuppliers());
+        part.setSupplier(dto.getSupplier());
         part.setBrand(dto.getBrand());
         part.setCategory(dto.getCategory());
 
