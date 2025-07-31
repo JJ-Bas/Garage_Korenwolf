@@ -55,3 +55,7 @@ VALUES (5, 30, 'Oil slightly over minimum', false);
 
 INSERT INTO work_performed (id, work_time_in_minutes, notes, warranty)
 VALUES (6, 20, 'All tires in good condition', false);
+
+-- Reset sequence to avoid conflict with inserted IDs
+-- anders levert het een probleem op met /parts POST: create new part
+SELECT setval('job_item_seq', (SELECT MAX(id) FROM job_item));

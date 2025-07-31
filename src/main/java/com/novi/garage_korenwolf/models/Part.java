@@ -9,7 +9,6 @@ public class Part extends JobItem {
 
     private String supplier;
 
-
     private String brand;
 
     private String category;

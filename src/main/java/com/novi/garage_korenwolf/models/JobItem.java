@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public abstract class JobItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_item_seq")
     private Long id;
 
     // relatie met MaintenanceJob
