@@ -1,5 +1,8 @@
 package com.novi.garage_korenwolf.models;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -8,6 +11,17 @@ import java.math.BigDecimal;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type" // JSON must include this field
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Part.class, name = "part"),
+        @JsonSubTypes.Type(value = WorkPerformed.class, name = "workPerformed")
+})
+
 public abstract class JobItem {
 
     @Id
