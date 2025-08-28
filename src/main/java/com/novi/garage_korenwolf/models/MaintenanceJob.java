@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "maintenance_Job")
+@Table(name = "maintenance_job")
 public class MaintenanceJob {
     @Id
     private Long id;
