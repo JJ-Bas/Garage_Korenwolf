@@ -3,6 +3,8 @@ package com.novi.garage_korenwolf.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,6 +25,8 @@ public class Person {
 
     private Set<Role> roles;
 */
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<CarPaper> carPapers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "personSet")
     private Set<Car> carsSet;
