@@ -15,16 +15,6 @@ public class Person {
     @GeneratedValue
     private Long id;
 
-    /*
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "person_roles",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-
-    private Set<Role> roles;
-*/
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<CarPaper> carPapers = new ArrayList<>();
 
@@ -48,26 +38,8 @@ public class Person {
     @Column(name = "email")
     private String email;
 
+
     //getters & setters
-
-/*
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    */
-
-    public Set<Car> getCarsSet() {
-        return carsSet;
-    }
-
-    public void setCarsSet(Set<Car> carsSet) {
-        this.carsSet = carsSet;
-    }
 
     public Long getId() {
         return id;
@@ -75,6 +47,22 @@ public class Person {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<CarPaper> getCarPapers() {
+        return carPapers;
+    }
+
+    public void setCarPapers(List<CarPaper> carPapers) {
+        this.carPapers = carPapers;
+    }
+
+    public Set<Car> getCarsSet() {
+        return carsSet;
+    }
+
+    public void setCarsSet(Set<Car> carsSet) {
+        this.carsSet = carsSet;
     }
 
     public String getFirstname() {
@@ -140,6 +128,7 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
 //TODO foreign key: car & role & autopapieren uploaden
 

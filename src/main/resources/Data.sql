@@ -14,6 +14,14 @@ ON CONFLICT DO NOTHING;
 -- rol toevoegen aan gebruiker
 INSERT INTO user_roles(user_name, name) VALUES ('admin', 'ROLE_ADMIN') ON CONFLICT DO NOTHING;
 INSERT INTO user_roles(user_name, name) VALUES ('mechanic', 'ROLE_MECHANIC') ON CONFLICT DO NOTHING;
+-- personen toevoegen aan Peron
+INSERT INTO persons (id, first_name, last_name, date_of_birth, street_name, house_number, postal_code, telephone_number, email)
+VALUES
+    (1, 'John', 'Doe', '1990-05-15', 'Maple Street', '12A', '12345', 316123456, 'john.doe@example.com')ON CONFLICT DO NOTHING;
+
+INSERT INTO persons (id, first_name, last_name, date_of_birth, street_name, house_number, postal_code, telephone_number, email)
+VALUES
+    (2, 'Jane', 'Smith', '1985-11-03', 'Oak Avenue', '45B', '54321', 316987654, 'jane.smith@example.com')ON CONFLICT DO NOTHING;
 
 -- Maintenance_job bonnen
 INSERT INTO maintenance_job (id, description) VALUES (1, 'Basic Maintenance');

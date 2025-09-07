@@ -5,6 +5,7 @@ import com.novi.garage_korenwolf.models.CarPaper;
 import com.novi.garage_korenwolf.models.Person;
 import com.novi.garage_korenwolf.repositories.CarPaperRepository;
 import com.novi.garage_korenwolf.repositories.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CarPaperService {
     private final CarPaperRepository carPaperRepository;
     private final PersonRepository personRepository;
