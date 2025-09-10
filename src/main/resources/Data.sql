@@ -4,16 +4,16 @@ VALUES ('ROLE_USER'), ('ROLE_ADMIN'), ('ROLE_MECHANIC')
     ON CONFLICT DO NOTHING;
 
 -- Gebruikers toevoegen
-INSERT INTO users(username, password)
-VALUES ('admin', '$2a$12$w.W0Y.Y/13FEndUm9Agya.6gzCwIXpG3OSxVfdYuyaMlkHP.VABaK')
+INSERT INTO users(id, username, password, email)
+VALUES (1,'admin', '$2a$12$w.W0Y.Y/13FEndUm9Agya.6gzCwIXpG3OSxVfdYuyaMlkHP.VABaK','admin@example.com')
     ON CONFLICT DO NOTHING;
-INSERT INTO users(username, password)
-VALUES ('mechanic', '$2a$12$w.W0Y.Y/13FEndUm9Agya.6gzCwIXpG3OSxVfdYuyaMlkHP.VABaK')
+INSERT INTO users(id, username, password, email)
+VALUES (2,'mechanic', '$2a$12$w.W0Y.Y/13FEndUm9Agya.6gzCwIXpG3OSxVfdYuyaMlkHP.VABaK', 'mechanic@example.com')
 ON CONFLICT DO NOTHING;
 
 -- rol toevoegen aan gebruiker
-INSERT INTO user_roles(user_name, name) VALUES ('admin', 'ROLE_ADMIN') ON CONFLICT DO NOTHING;
-INSERT INTO user_roles(user_name, name) VALUES ('mechanic', 'ROLE_MECHANIC') ON CONFLICT DO NOTHING;
+INSERT INTO user_roles(user_id, name) VALUES (1, 'ROLE_ADMIN') ON CONFLICT DO NOTHING;
+INSERT INTO user_roles(user_id, name) VALUES (2, 'ROLE_MECHANIC') ON CONFLICT DO NOTHING;
 -- personen toevoegen aan Peron
 INSERT INTO persons (id, first_name, last_name, date_of_birth, street_name, house_number, postal_code, telephone_number, email)
 VALUES

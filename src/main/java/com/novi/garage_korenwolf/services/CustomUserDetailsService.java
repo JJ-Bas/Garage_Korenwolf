@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -23,21 +24,22 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userService.getUser(username);
+        // ✅ Gebruik een findByUsername methode in je service
+        UserDto userDto = userService.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        if (userDto == null) {
-            throw new UsernameNotFoundException("User not found: " + username);
-        }
-
-        String password = userDto.getPassword();
+        String password = userDto.getPassword(); // Zorg dat je UserDto dit bevat
         Set<String> roles = userDto.getRoles();
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
-        for (String role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role));
-        }
+        List<GrantedAuthority> authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(username, password, grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(
+                userDto.getUsername(),
+                password,
+                authorities
+        );
     }
     }
 
