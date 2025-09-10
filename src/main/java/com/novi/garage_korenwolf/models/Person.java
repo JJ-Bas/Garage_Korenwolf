@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+//TODO: controleren of de koppeling met CarPaper klopt.
+
 @Entity
 @Table(name = "persons")
 public class Person {
