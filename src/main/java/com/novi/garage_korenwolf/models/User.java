@@ -30,7 +30,7 @@ import java.util.Set;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_name"),
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "name")
     )
     private Set<Role> roles = new HashSet<>();
