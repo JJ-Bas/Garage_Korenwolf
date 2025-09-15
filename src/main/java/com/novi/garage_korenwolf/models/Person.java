@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,14 +15,15 @@ import java.util.Set;
 public class Person {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persons_seq")
+    @SequenceGenerator(name = "persons_seq", sequenceName = "persons_seq", allocationSize = 1)
     private Long id;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<CarPaper> carPapers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "personSet")
-    private Set<Car> carsSet;
+    private Set<Car> carsSet = new HashSet<>();;
 
     @Column(name = "first_name", length = 128)
     private String firstname;

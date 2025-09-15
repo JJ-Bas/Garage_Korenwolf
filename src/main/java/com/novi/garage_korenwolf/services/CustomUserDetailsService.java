@@ -24,11 +24,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // ✅ Gebruik een findByUsername methode in je service
         UserDto userDto = userService.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        String password = userDto.getPassword(); // Zorg dat je UserDto dit bevat
+        String password = userDto.getPassword();
         Set<String> roles = userDto.getRoles();
 
         List<GrantedAuthority> authorities = roles.stream()

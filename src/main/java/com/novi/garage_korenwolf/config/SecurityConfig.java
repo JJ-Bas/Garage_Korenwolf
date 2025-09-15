@@ -5,6 +5,7 @@ import com.novi.garage_korenwolf.security.JwtRequestFilter;
 import com.novi.garage_korenwolf.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -48,6 +49,8 @@ public class SecurityConfig {
                                         // on/off security switch
                                         .requestMatchers("/**").permitAll()
                         // TODO: rollen toegangen toevoegen
+                                        //.requestMatchers("/auth").permitAll()
+                                        //.requestMatchers("/parts","/work-performed").hasRole("ADMIN")
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
